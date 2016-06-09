@@ -3154,6 +3154,10 @@ class Amazon_S3_And_CloudFront extends AWS_Plugin_Base {
 
 					$s3client = $this->get_s3client( $this->get_setting( 'region' ) );
 					$key_prefix = ltrim( untrailingslashit( $this->get_object_prefix() ), '/' );
+
+					$filename = basename($key);
+					$key = str_replace($filename, '', $key).date('YmdHis', current_time('timestamp')).'-'.$filename;
+
 					$args = array(
 						'Bucket'     => $this->get_setting( 'bucket' ),
 						'Key'        => $key_prefix . $key,
